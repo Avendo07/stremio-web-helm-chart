@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-config
+data:
+  AUTO_SERVER_URL: {{ 1 | quote }}
+  NO_CORS: {{ 1 | quote }}
