@@ -1,0 +1,1 @@
+Helm Chart to install stremio web application to the kubernetes cluster
