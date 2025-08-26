@@ -34,7 +34,7 @@ resources:
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
    limits:
      cpu: 2000m
-     memory: 2000Mi
+     memory: 4000Mi
    requests:
      cpu: 500m
      memory: 500Mi
@@ -73,8 +73,8 @@ volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
+# - name: "cache"
+#   mountPath: "/root/.stremio-server"
 #   readOnly: true
 
 nodeSelector: {}
@@ -82,3 +82,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+persistence:
+  # -- If you set this to false, uploaded attachments are not stored persistently and will be lost with every restart of the pod
+  enabled: true
+  pvSize: 20Gi
+  pvcSize: 20Gi
+  accessModes: ReadWriteMany
+  pvLocation: "/home/microlaptop/stremio-data"

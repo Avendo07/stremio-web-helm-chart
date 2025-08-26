@@ -1,0 +1,22 @@
+apiVersion: batch/v1 # Or batch/v1beta1 for older Kubernetes versions
+kind: CronJob
+metadata:
+  name: pvc-cleaner
+spec:
+  schedule: "0 6 * * 0" # Runs weekly at 6 UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: pvc-cleaner-container
+              image: busybox # Or any image with 'sh' and 'rm'
+              command: ["sh", "-c", "rm -rf /data/stremio-cache 2>/dev/null || true"] # Cleans all files and directories, including hidden ones
+              volumeMounts:
+                - name: pvc-storage
+                  mountPath: /data
+          volumes:
+            - name: pvc-storage
+              persistentVolumeClaim:
+                claimName: {{ .Chart.Name }}-pv-claim
+          restartPolicy: OnFailure

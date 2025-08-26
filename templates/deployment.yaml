@@ -53,6 +53,7 @@ spec:
           volumeMounts:
             - name: "cache"
               mountPath: "/root/.stremio-server"
+      #TODO: Move this to values.yaml
       volumes:
         - name: "cache"
           persistentVolumeClaim:
